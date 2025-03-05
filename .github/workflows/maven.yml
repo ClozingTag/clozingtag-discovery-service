@@ -48,6 +48,25 @@ jobs:
       - name: Update deployment file
         run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ env.IMAGE_NAME }}/clozingtag-discovery-service:'${TAG}'|' k8s/clozingtag-discovery-service-deployment.yaml
 
+      - name: Debug Deployment File Update
+        run: |
+          TAG=$(echo $GITHUB_SHA | head -c7)
+          echo "Updating Deployment File with TAG: $TAG"
+          
+          # Print the file content before updating
+          echo "Before Update:"
+          cat k8s/clozingtag-discovery-service-deployment.yaml
+          
+          # Run sed with debugging
+          sed -i "s|<IMAGE>|${{ env.IMAGE_NAME }}/clozingtag-discovery-service:$TAG|" k8s/clozingtag-discovery-service-deployment.yaml
+          
+          # Verify if the replacement was successful
+          echo "After Update:"
+          cat k8s/clozingtag-discovery-service-deployment.yaml
+          
+          # Check if sed actually replaced anything
+          grep "${{ env.IMAGE_NAME }}/clozingtag-discovery-service:$TAG" k8s/clozingtag-discovery-service-deployment.yaml || echo "Replacement failed!"
+
       - name: Simulate Deployment
         run: |
           echo "Simulating deployment environment..."
