@@ -40,8 +40,6 @@ spec:
           requests:
             cpu: 400m
             memory: 512Mi
-      imagePullSecrets:
-        - name: ghcr-secret
 ---
 apiVersion: v1
 kind: Service
