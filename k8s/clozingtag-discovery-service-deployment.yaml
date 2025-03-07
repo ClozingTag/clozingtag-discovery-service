@@ -27,7 +27,7 @@ spec:
           value: -XX:TieredStopAtLevel=1 -noverify -Xms128m -Xmx512m -Xss4m -XX:ParallelGCThreads=1
             -XX:ConcGCThreads=1 -Djava.util.concurrent.ForkJoinPool.common.parallelism=1
             -cp .
-        image: ghcr.io/clozingtag/clozingtag-discovery-service:552e47f
+        image: <IMAGE>
         imagePullPolicy: IfNotPresent
         name: clozingtag-discovery-service
         ports:
